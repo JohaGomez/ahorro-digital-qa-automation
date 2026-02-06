@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "dd76eb79-76c6-4489-aa20-31d8502cecba",
+		"name": "Ahorro Digital API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18226005"
+	},
+	"item": [
+		{
+			"name": "SEC-API-01 Acceso sin token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 401 - Acceso no autorizado\", function () {\r",
+							"  pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"No se expone información sensible\", function () {\r",
+							"  pm.expect(pm.response.text()).to.not.include(\"price\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer token_invalido",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"message\": \"Unauthorized\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/products\n",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products\n"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "401 Unauthorized - Invalid token",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"message\": \"Unauthorized\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/products\n",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"products\n"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\r\n  \"message\": \"Unauthorized\"\r\n}\r\n"
+				}
+			]
+		},
+		{
+			"name": "SEC-API-02 Acceso con token inválido",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 401 - Token inválido\", function () {\r",
+							"  pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer token_invalido",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/products\n",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"products\n"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "SEC-API-02 Acceso con token inválido",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer token_invalido",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/products\n?Authorization=Bearer token_invalido",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"products\n"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer token_invalido"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\r\n  \"message\": \"Invalid or expired token\"\r\n}\r\n"
+				}
+			]
+		}
+	]
+}
