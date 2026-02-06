@@ -8,8 +8,9 @@
 El sistema no valida correctamente tokens inválidos, permitiendo el acceso.
 
 ### Pasos para reproducir
-1. Enviar GET `/api/products`
-2. Enviar header `Authorization: Bearer token_invalido`
+1. Ingresar al request SEC-API-02 Acceso con token inválido
+2. Enviar GET `/api/products`
+3. Enviar header `Authorization: Bearer token_invalido`
 
 ### Resultado actual
 - Status 200 OK
